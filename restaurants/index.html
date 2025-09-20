@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <!-- <title>Index - Bootslander Bootstrap Template</title> -->
+   <title>Dropo | United Kingdom's Fast & Friendly Food Delivery</title>
+  <meta name="description" content="Find Dropo and discover a place where fast meets friendly in the United
+  Kingdom. Light-speed delivery and transparency in the price support a community with each
+  order.">
+  <meta name="keywords" content="Dropo, food delivery, quick service Dundee, ethical delivery, community support">
+
+  <!-- Favicons -->
+  <link href="../assets/img/dropoLogo.svg" rel="icon">
+  <link href="../assets/img/dropoLogo.svg" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+
+        .restaurants-section {
+            padding: 4rem 0;
+        }
+
+        .restaurant-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .restaurant-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo me-auto me-lg-0"><img src="../assets/img/dlogo.png" class="img-fluid"
+        alt="Logo"></a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html" >Home</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="restaurants/index.html" class="active">Restaurants</a></li>
+          <!-- <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#team">Team</a></li> -->
+          <!-- <li><a href="#pricing">Pricing</a></li> -->
+          
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Our Restaurants</h1>
+            <p>Discover amazing dining experiences across all our locations</p>
+        </div>
+    </section>
+
+    <!-- Restaurants Section -->
+    <section class="restaurants-section">
+        <div class="container">
+            <h2 class="section-title">Find Your Perfect Dining Experience</h2>
+            
+            <!-- Loading State -->
+            <div id="loading" class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading restaurants...</span>
+                </div>
+                <p class="mt-3">Loading restaurants...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error-message d-none">
+                <strong>Oops!</strong> Unable to load restaurants. Please try again later.
+            </div>
+
+            <!-- Restaurants Grid -->
+            <div id="restaurants-grid" class="row g-4 d-none">
+                <!-- Restaurant cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Example API endpoint - replace with your actual API
+        const API_ENDPOINT = 'http://192.248.171.18:5000/api/v1/restaurants';
+        
+        // Function to create restaurant card HTML
+        function createRestaurantCard(restaurant) {
+            return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card restaurant-card">
+                        <img src="${restaurant.image ? `http://192.248.171.18:5000/`+restaurant.image : 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'}" 
+                             alt="${restaurant.name}" 
+                             class="card-img-top restaurant-image">
+                        <div class="card-body">
+                            <h5 class="card-title">${restaurant.name}</h5>
+                            <p class="card-text">
+                                <i class="bi bi-geo-alt"></i>
+                                <small class="text-muted">${restaurant.address}</small>
+                            </p>
+                            <a href="#" class="btn btn-primary">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to fetch restaurants from API
+        async function fetchRestaurants() {
+            try {
+                // Show loading state
+                document.getElementById('loading').classList.remove('d-none');
+                document.getElementById('error').classList.add('d-none');
+                document.getElementById('restaurants-grid').classList.add('d-none');
+
+                // Replace this with your actual API call
+                const response = await fetch(API_ENDPOINT);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch restaurants');
+                }
+
+                const res = await response.json();
+                displayRestaurants(res.resturants);
+
+            } catch (error) {
+                console.error('Error fetching restaurants:', error);
+                
+                showError();
+            }
+        }
+
+        // Function to display restaurants
+        function displayRestaurants(restaurants) {
+            const grid = document.getElementById('restaurants-grid');
+            const loading = document.getElementById('loading');
+            
+            // Hide loading state
+            loading.classList.add('d-none');
+            
+            // Show restaurants grid
+            grid.classList.remove('d-none');
+            
+            // Clear existing content
+            grid.innerHTML = '';
+            
+            // Add restaurant cards
+            restaurants.forEach(restaurant => {
+                grid.innerHTML += createRestaurantCard(restaurant);
+            });
+        }
+
+        // Function to show error state
+        function showError() {
+            document.getElementById('loading').classList.add('d-none');
+            document.getElementById('error').classList.remove('d-none');
+            document.getElementById('restaurants-grid').classList.add('d-none');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchRestaurants();
+        });
+    </script>
+</body>
+</html>
