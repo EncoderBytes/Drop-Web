@@ -257,10 +257,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // CORS proxy endpoints to bypass mixed content issue
+        const MENU_API_BASE = 'https://api.allorigins.win/get?url=';
+        const RESTAURANTS_API_BASE = 'https://api.allorigins.win/get?url=';
+        const IMAGE_PROXY_BASE = 'https://api.allorigins.win/raw?url=';
+
         // Get restaurant ID from URL parameters
         function getRestaurantIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('id');
+        }
+
+        // Function to get proxied image URL
+        function getImageUrl(imagePath) {
+            if (!imagePath) {
+                return 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+            }
+            const imageUrl = `http://192.248.171.18:5000/${imagePath}`;
+            return `${IMAGE_PROXY_BASE}${encodeURIComponent(imageUrl)}`;
         }
 
         // Function to create restaurant info HTML
@@ -271,7 +285,7 @@
             return `
                 <div class="row align-items-center">
                     <div class="col-md-2 col-12 mb-3 mb-md-0 text-center">
-                        <img src="${restaurant.image ? `http://192.248.171.18:5000/${restaurant.image}` : 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'}" 
+                        <img src="${getImageUrl(restaurant.image)}" 
                              alt="${restaurant.name}" 
                              class="restaurant-image">
                     </div>
@@ -346,20 +360,25 @@
             `;
         }
 
-        // Function to fetch menu data
+        // Function to fetch menu data using CORS proxy
         async function fetchMenu(restaurantId) {
             try {
                 showLoading();
                 
-                const response = await fetch(`http://192.248.171.18:5000/api/v1/menus/${restaurantId}`);
+                const menuUrl = `http://192.248.171.18:5000/api/v1/menus/${restaurantId}`;
+                const proxyUrl = `${MENU_API_BASE}${encodeURIComponent(menuUrl)}`;
+                
+                const response = await fetch(proxyUrl);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const {menus} = await response.json();
-                console.log('API Response:', menus); // Debug log
-                displayMenu(menus);
+                const proxyResponse = await response.json();
+                // Parse the actual API response from the proxy
+                const data = JSON.parse(proxyResponse.contents);
+                console.log('Menu API Response:', data); // Debug log
+                displayMenu(data.menus);
 
             } catch (error) {
                 console.error('Error fetching menu:', error);
@@ -384,8 +403,7 @@
                 const restaurant = firstMenu.restaurant;
                 restaurantInfoContainer.innerHTML = createRestaurantInfo(restaurant);
             } else {
-                // If no restaurant info available, we need to fetch it separately
-                // For now, let's fetch restaurant data from the restaurants API
+                // If no restaurant info available, fetch it separately
                 fetchRestaurantInfo(getRestaurantIdFromUrl());
             }
 
@@ -414,18 +432,23 @@
             document.getElementById('menu-content').classList.add('d-none');
         }
 
-        // Function to fetch restaurant info separately
+        // Function to fetch restaurant info separately using CORS proxy
         async function fetchRestaurantInfo(restaurantId) {
             try {
-                const response = await fetch(`http://192.248.171.18:5000/api/v1/restaurants`);
+                const restaurantUrl = 'http://192.248.171.18:5000/api/v1/restaurants';
+                const proxyUrl = `${RESTAURANTS_API_BASE}${encodeURIComponent(restaurantUrl)}`;
+                
+                const response = await fetch(proxyUrl);
                 
                 if (!response.ok) {
                     console.warn('Could not fetch restaurant info');
                     return;
                 }
 
-                const res = await response.json();
-                const restaurant = res.resturants?.find(r => r._id === restaurantId);
+                const proxyResponse = await response.json();
+                // Parse the actual API response from the proxy
+                const data = JSON.parse(proxyResponse.contents);
+                const restaurant = data.resturants?.find(r => r._id === restaurantId);
                 
                 if (restaurant) {
                     const restaurantInfoContainer = document.getElementById('restaurant-info');
