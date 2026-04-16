@@ -12,44 +12,80 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --heading-font: "Outfit", sans-serif;
+  --nav-font: "Outfit", sans-serif;
 }
 
-/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+/* Global Colors - Rich Dark Theme */
 :root { 
-  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-  --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #A6CE39; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #242726; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+  --background-color: #070709; /* Deep dark background */
+  --default-color: #a1a1aa; /* Muted gray for readable text */
+  --heading-color: #ffffff; /* Crisp white for headings */
+  --accent-color: #A6CE39; /* Dropo neon green accent */
+  --surface-color: rgba(24, 24, 27, 0.4); /* Glassmorphic surface */
+  --surface-border: rgba(255, 255, 255, 0.05); /* Subtle border for glass effects */
+  --contrast-color: #070709; /* Contrast color for text on accent */
 }
 
-/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+/* Nav Menu Colors */
 :root {
-  --nav-color: #ffffff;  /* The default color of the main navmenu links */
-  --nav-hover-color: #484848; /* Applied to main navmenu links when they are hovered over or active */
-  --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #525151; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #474847; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-color: #e4e4e7;  
+  --nav-hover-color: #A6CE39; 
+  --nav-mobile-background-color: rgba(7, 7, 9, 0.95); 
+  --nav-dropdown-background-color: rgba(24, 24, 27, 0.8); 
+  --nav-dropdown-color: #e4e4e7; 
+  --nav-dropdown-hover-color: #A6CE39; 
 }
 
-/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+/* Color Presets */
+
+body.light-theme {
+  --background-color: #f8fafc;
+  --default-color: #475569;
+  --heading-color: #0f172a;
+  --surface-color: rgba(255, 255, 255, 0.6);
+  --surface-border: rgba(0, 0, 0, 0.05);
+  --contrast-color: #ffffff;
+  --nav-color: #475569;
+  --nav-mobile-background-color: rgba(255, 255, 255, 0.95);
+  --nav-dropdown-background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .dark-background,
+body.light-theme.dark-background {
+  --background-color: #f1f5f9;
+  --default-color: #475569;
+  --heading-color: #0f172a;
+  --surface-color: rgba(255, 255, 255, 0.5);
+  --contrast-color: #ffffff;
+}
+
+body.light-theme .scrolled .header {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
 
 .light-background {
-  --background-color: #f4f5fe;
-  --surface-color: #ffffff;
+  --background-color: #0a0a0c;
+  --surface-color: rgba(30, 30, 35, 0.4);
 }
 
 .dark-background {
-  --background-color: #A6CE39;
-  --default-color: #ffffff;
+  --background-color: #050505;
+  --default-color: #a1a1aa;
   --heading-color: #ffffff;
-  --surface-color: #A6CE39;
+  --surface-color: rgba(255, 255, 255, 0.03);
   --contrast-color: #ffffff;
+}
+
+/* Glassmorphism Utility */
+.glass-panel {
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Smooth scroll */
@@ -143,14 +179,15 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: rgba(255, 255, 255, 0);
-  --default-color: #A6CE39;
-  --heading-color: #A6CE39;
+  --background-color: transparent;
+  --default-color: #e4e4e7;
+  --heading-color: #ffffff;
   color: var(--default-color);
-  background-color: #ffffff;
-  padding: 20px 0;
-  transition: all 0.5s;
+  background-color: transparent;
+  padding: 24px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 997;
+  border-bottom: 1px solid transparent;
 }
 
 .header .logo {
@@ -160,6 +197,7 @@ h6 {
 .header .logo img {
   max-height: 56px;
   margin-right: 13px;
+  filter: brightness(1.2); /* Make logo pop slightly more against dark bg */
 }
 
 .header .logo h1 {
@@ -170,14 +208,16 @@ h6 {
 }
 
 .scrolled .header {
-  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
+  background-color: rgba(7, 7, 9, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Global Header on Scroll
 ------------------------------*/
-.scrolled .header {
-  --background-color: #ffffff;
-}
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -211,7 +251,7 @@ h6 {
 
   .navmenu a,
   .navmenu a:focus {
-    color: #A6CE39;
+    color: var(--nav-color);
     font-size: 15px;
     padding: 0 2px;
     font-family: var(--nav-font);
@@ -254,7 +294,7 @@ h6 {
   .navmenu li:hover>a,
   .navmenu .active,
   .navmenu .active:focus {
-    color: #A6CE39;
+    color: var(--nav-hover-color);
   }
 
   .navmenu .dropdown ul {
@@ -818,15 +858,19 @@ section,
 
 .hero h1 {
   margin: 0 0 20px 0;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 56px;
-  color: color-mix(in srgb, var(--heading-color), transparent 30%);
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--heading-color);
+  text-shadow: 0 0 40px rgba(166, 206, 57, 0.4);
 }
 
 .hero h1 span {
-  color: var(--heading-color);
-  border-bottom: 4px solid var(--accent-color);
+  color: var(--accent-color);
+  background: linear-gradient(90deg, var(--accent-color), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: none;
 }
 
 .hero p {
@@ -916,21 +960,21 @@ section,
 .hero .wave1 use {
   animation: move-forever1 10s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--background-color);
   opacity: 0.6;
 }
 
 .hero .wave2 use {
   animation: move-forever2 8s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--background-color);
   opacity: 0.4;
 }
 
 .hero .wave3 use {
   animation: move-forever3 6s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--background-color);
 }
 
 @keyframes move-forever1 {
@@ -1031,11 +1075,14 @@ section,
 }
 
 .about .icon-box {
-  background-color: var(--surface-color);
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
   padding: 50px 40px;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  transition: all 0.3s ease-out 0s;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .about .icon-box i {
@@ -1085,12 +1132,15 @@ section,
 # Features Section
 --------------------------------------------------------------*/
 .features .features-item {
-  background-color: var(--surface-color);
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   padding: 20px;
-  transition: 0.3s;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
@@ -1141,14 +1191,17 @@ section,
 }
 
 .stats .stats-item {
-  background-color: var(--surface-color);
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
   margin-top: -27px;
   padding: 30px 30px 25px 30px;
   width: 100%;
   position: relative;
   text-align: center;
-  box-shadow: 0px 2px 35px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
   z-index: 0;
 }
 
@@ -1577,11 +1630,15 @@ section,
 }
 
 .faq .faq-container .faq-item {
-  background-color: var(--surface-color);
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
   position: relative;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
   overflow: hidden;
 }
 
